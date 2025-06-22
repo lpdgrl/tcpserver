@@ -7,9 +7,21 @@ project(tcpserver VERSION 0.1.0 LANGUAGES C CXX)
 # )
 
 add_executable(${PROJECT_NAME} 
+    include/socket.hpp
+    include/socketclient.hpp
+    include/socketserver.hpp
+    include/tcpserver.hpp
+    include/tcpclient.hpp
+    include/connection_manager.hpp
+    include/client_manager.hpp
     src/tcpserver.cpp
+    src/tcpclient.cpp
     src/socket.cpp
     src/socketserver.cpp
+    src/socketclient.cpp
+    src/connection_manager.cpp
+    src/client_manager.cpp
+    main.cpp
 )
 
 

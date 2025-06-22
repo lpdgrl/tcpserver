@@ -4,6 +4,9 @@
 #include <cstdint>
 #include <string>
 #include <cassert>
+#include <memory>
+#include <utility>
+#include <chrono>
 
 #include <arpa/inet.h>
 #include <sys/types.h>
@@ -19,11 +22,19 @@ public:
 
     ~Socket();
 
-    int GetSFd();
+    int GetFd() const;
+
+    Socket(const Socket& rhs) = delete;
+    Socket& operator=(const Socket& rhs) = delete;
+
+    Socket(Socket&& rhs) = delete;
+    Socket&& operator=(const Socket&& rhs) = delete;
+    virtual void Send(const std::string& msg) const;
+    virtual std::string Receive(int dst_fd) const;
 
 protected:
-    void GetAddrInfo(const char* name, const char* service, addrinfo& res, addrinfo* pai);
+    void GetAddrInfo(const char* name, const char* service, addrinfo& res, addrinfo* pai) const;
 
 protected:
-    int socket_fd_;
+    int socket_fd_{};
 };
