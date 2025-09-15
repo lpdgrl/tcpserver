@@ -10,13 +10,12 @@ ConnectionManager::ConnectionManager(SocketServer* server, ClientManager* client
 }
     
 void ConnectionManager::AcceptNewClients() {
-    std::unique_ptr<SocketClient> client;
     while(true) {
+        std::unique_ptr<SocketClient> client;
         client = server_->Accept();
 
         if (client) {
             clients_->AddClient(std::move(client));
-            break;
         }
     }
 }

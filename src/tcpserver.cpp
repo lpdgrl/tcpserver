@@ -30,11 +30,27 @@ void TCPserver::Start() {
     running_ = true;
 }
 
+void TCPserver::Worker() {
+
+}
+
 void TCPserver::Run() {
+    std::thread accept_clients(&ConnectionManager::AcceptNewClients, conn_manager_.get()); 
+    accept_clients.detach();
+
+    size_t count_clients = 0;
+
     while (running_) {
-        conn_manager_->AcceptNewClients();
-        client_manager_->ReceiveFromAll();
+        // conn_manager_->AcceptNewClients();
+        size_t tmp_count_clients = client_manager_->GetClients().size();
+        if (tmp_count_clients > count_clients) {
+            count_clients = tmp_count_clients;
+
+            std::thread worker(&ClientManager::Receive, client_manager_.get(), tmp_count_clients - 1);
+            worker.detach();
+        }
     }
+    
 }
 
 void TCPserver::Stop() {

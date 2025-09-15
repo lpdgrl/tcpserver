@@ -8,9 +8,7 @@ SocketClient::SocketClient(int fd, sockaddr_storage client_addr) {
 SocketClient::SocketClient(std::string port) : Socket(), port_{port} {}
 
 
-SocketClient::~SocketClient() {
-}
-
+SocketClient::~SocketClient() {}
 
 void SocketClient::CreateSock() {
     addrinfo hints{};

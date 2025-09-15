@@ -38,6 +38,7 @@ public:
 
 private:
     void Create();
+    void Worker();
 
 private:
     bool running_ = false;

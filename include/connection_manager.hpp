@@ -12,4 +12,5 @@ public:
 private:
     SocketServer* server_;
     ClientManager* clients_;
+    std::mutex mtx_;
 };
